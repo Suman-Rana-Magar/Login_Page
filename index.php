@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (isset($_SESSION["success"])) {
+    $success = $_SESSION["success"];
+}
 include "backend/db_connect.php";
 if (isset($_SESSION["email"])) {
     $email = $_SESSION["email"];
@@ -33,6 +36,14 @@ $link = isset($email) ? "backend/logout.php" : "frontend/views/login.php";
         body {
             background-color: #6ec6de;
             display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .super_container {
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -85,19 +96,41 @@ $link = isset($email) ? "backend/logout.php" : "frontend/views/login.php";
             cursor: pointer;
             font-size: 18px;
         }
+
+        .success-message {
+            background-color: #D4EDDA;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 350px;
+            margin: 0;
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <img src="<?php echo isset($image) ? $image : '../frontend/assets/images/unknown.jpg' ?>" alt="Profile Picture" class="profile-img">
-        <div class="user-name"><?php echo isset($name) ? $name : "Who Are You?" ?></div>
-        <p class="user-email"><?php echo isset($email) ? $email : "Unknown@domain.com" ?></p>
-        <span class="user-id">ID #<?php echo isset($id) ? $id : "?" ?></span>
-        <div class="icons">
-            <a href="<?php echo $link ?>"><button class="icon-btn"><i class="fas fa-sign-out-alt"></i></button></a>
+    <div class="super_container">
+        <?php if (isset($success['login'])): ?>
+            <div class="success-message">
+                <p>Welcome back, <?php echo $name; ?></p>
+            </div>
+        <?php endif; ?>
+        <div class="container">
+            <img src="<?php echo isset($image) ? $image : '../frontend/assets/images/unknown.jpg' ?>" alt="Profile Picture" class="profile-img">
+            <div class="user-name"><?php echo isset($name) ? $name : "Who Are You?" ?></div>
+            <p class="user-email"><?php echo isset($email) ? $email : "Unknown@domain.com" ?></p>
+            <span class="user-id">ID #<?php echo isset($id) ? $id : "?" ?></span>
+            <div class="icons">
+                <a href="<?php echo $link ?>"><button class="icon-btn"><i class="fas fa-sign-out-alt"></i></button></a>
+            </div>
         </div>
     </div>
 </body>
 
 </html>
+
+<?php
+unset($_SESSION['success']);
+?>

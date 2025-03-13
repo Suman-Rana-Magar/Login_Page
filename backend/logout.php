@@ -12,8 +12,7 @@ if (!isset($_GET['confirm'])) {
 } else {
     if ($_GET['confirm'] === 'yes') {
         session_destroy();
-        echo "<script>alert('Logout Successfully !')</script>";
-        echo "<script>window.location.href = '../frontend/views/login.php';</script>";
+        header("location: ../frontend/views/login.php");
         exit();
     } else {
         header("Location: ../index.php");

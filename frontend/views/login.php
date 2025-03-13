@@ -108,6 +108,25 @@ if (isset($_SESSION['errors'])) {
             margin-top: -10px;
         }
 
+        .super_container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .success-message {
+            background-color: #D4EDDA;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 350px;
+            margin: 0;
+            text-align: center;
+        }
+
         @media (max-width: 400px) {
             .container {
                 width: 90%;
@@ -117,24 +136,31 @@ if (isset($_SESSION['errors'])) {
 </head>
 
 <body>
-    <a href="../../index.php" class="back-link">&larr; Back to homepage</a>
-    <div class="container">
-        <h2>Login to our platform</h2>
-        <form action="../../backend/login.php" method="POST">
-            <div class="input-group">
-                <i class="fas fa-envelope" onclick="focusInput('email')"></i>
-                <input type="email" id="email" name="email" placeholder="Email" required value="<?php echo $oldData['email'] ?>">
+    <div class="super_container">
+        <a href="../../index.php" class="back-link">&larr; Back to homepage</a>
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="success-message">
+                <p><?php echo $_SESSION['success']; ?></p>
             </div>
-            <div class="input-group">
-                <i class="fas fa-lock" onclick="focusInput('password')"></i>
-                <input type="password" id="password" name="password" placeholder="Password" required value="<?php echo $oldData['password'] ?>">
-                <i class="fas fa-eye eye" onclick="togglePassword('password', this)"></i>
-            </div>
-            <?php echo isset($errors['email']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['email'] . "</p>" : ""; ?>
-            <div class="links"><a href="forgot_password_email.php">Forgot password?</a></div>
-            <button type="submit" class="btn" name="submit">Sign in</button>
-        </form>
-        <div class="links">Not registered? <a href="signup.php">Create account</a></div>
+        <?php endif; ?>
+        <div class="container">
+            <h2>Login to our platform</h2>
+            <form action="../../backend/login.php" method="POST">
+                <div class="input-group">
+                    <i class="fas fa-envelope" onclick="focusInput('email')"></i>
+                    <input type="email" id="email" name="email" placeholder="Email" required value="<?php echo $oldData['email'] ?>">
+                </div>
+                <div class="input-group">
+                    <i class="fas fa-lock" onclick="focusInput('password')"></i>
+                    <input type="password" id="password" name="password" placeholder="Password" required value="<?php echo $oldData['password'] ?>">
+                    <i class="fas fa-eye eye" onclick="togglePassword('password', this)"></i>
+                </div>
+                <?php echo isset($errors['email']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['email'] . "</p>" : ""; ?>
+                <div class="links"><a href="forgot_password_email.php">Forgot password?</a></div>
+                <button type="submit" class="btn" name="submit">Sign in</button>
+            </form>
+            <div class="links">Not registered? <a href="signup.php">Create account</a></div>
+        </div>
     </div>
 
     <script>
@@ -156,3 +182,9 @@ if (isset($_SESSION['errors'])) {
 </body>
 
 </html>
+
+<?php
+unset($_SESSION['errors']);
+unset($_SESSION['oldData']);
+unset($_SESSION['success']);
+?>

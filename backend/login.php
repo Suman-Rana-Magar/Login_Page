@@ -2,6 +2,7 @@
 session_start();
 $errors = [];
 $oldData = [];
+$success = [];
 include "db_connect.php";
 
 if (isset($_POST["submit"])) {
@@ -11,7 +12,9 @@ if (isset($_POST["submit"])) {
     $sql = "SELECT * FROM users WHERE email='$email' AND password='$password'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
+        $success['login'] = $email;
         $_SESSION["email"] = $email;
+        $_SESSION["success"] = $success;
         header("location: ../index.php");
         exit();
     } else {
@@ -21,7 +24,6 @@ if (isset($_POST["submit"])) {
         $_SESSION['errors'] = $errors;
         $_SESSION['oldData'] = $oldData;
         header("location: ../frontend/views/login.php");
-        exit();
     }
     mysqli_close($conn);
 }

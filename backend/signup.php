@@ -52,8 +52,8 @@ if (isset($_POST["submit"])) {
         exit();
     }
     if (mysqli_query($conn, $insert)) {
-        echo "<script> alert('Account Created Successfully !')</script>";
-        echo "<script> window.open('../frontend/views/login.php','_SELF')</script>";
+        $_SESSION['success'] = "Account Created Successfully !";
+        header("location: ../frontend/views/login.php");
     } else {
         die("Error Detected !" . mysqli_error($conn));
     }
