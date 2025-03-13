@@ -1,3 +1,19 @@
+<?php
+session_start();
+include "backend/db_connect.php";
+if (isset($_SESSION["email"])) {
+    $email = $_SESSION["email"];
+    $query = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $query);
+    $row = mysqli_fetch_assoc($result);
+    $name = $row["name"];
+    $email = $row["email"];
+    $id = $row["id"];
+    $image = $row["image"];
+}
+$link = isset($email) ? "backend/logout.php" : "frontend/views/login.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -75,12 +91,13 @@
 <body>
     <div class="container">
         <img src="https://inforrm.org/wp-content/uploads/2018/06/unknown.jpg" alt="Profile Picture" class="profile-img">
-        <div class="user-name">Who Are You?</div>
-        <p class="user-email">unknown@gmail.com</p>
-        <span class="user-id">ID #?</span>
+        <div class="user-name"><?php echo isset($name) ? $name : "Who Are You?" ?></div>
+        <p class="user-email"><?php echo isset($email) ? $email : "Unknown@domain.com" ?></p>
+        <span class="user-id">ID #<?php echo isset($id) ? $id : "?" ?></span>
         <div class="icons">
-            <a href="login.php"><button class="icon-btn"><i class="fas fa-sign-out-alt"></i></button></a>
+            <a href="<?php echo $link ?>"><button class="icon-btn"><i class="fas fa-sign-out-alt"></i></button></a>
         </div>
     </div>
 </body>
+
 </html>

@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION["email"])) {
+    header("Location: ../../index.php");
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -100,7 +108,7 @@
 </head>
 
 <body>
-    <a href="index.php" class="back-link">&larr; Back to homepage</a>
+    <a href="../../index.php" class="back-link">&larr; Back to homepage</a>
     <div class="container">
         <h2>Login to our platform</h2>
         <form action="../../backend/login.php" method="POST">

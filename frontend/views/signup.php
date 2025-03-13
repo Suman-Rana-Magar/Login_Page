@@ -103,7 +103,7 @@
 </head>
 
 <body>
-    <a href="index.php" class="back-link">&larr; Back to homepage</a>
+    <a href="../../index.php" class="back-link">&larr; Back to homepage</a>
     <div class="container">
         <h2>Create Account</h2>
         <form action="../../backend/signup.php" method="POST">
