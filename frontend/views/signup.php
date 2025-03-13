@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    $oldData = $_SESSION['oldData'];
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,6 +102,10 @@
             font-weight: bold;
         }
 
+        .error-message {
+            text-align: left;
+        }
+
         @media (max-width: 400px) {
             .container {
                 width: 90%;
@@ -109,24 +121,27 @@
         <form action="../../backend/signup.php" method="POST" enctype="multipart/form-data">
             <div class="input-group">
                 <i class="fas fa-user" onclick="focusInput('name')"></i>
-                <input type="text" id="name" name="name" placeholder="Name" required>
+                <input type="text" id="name" name="name" placeholder="Name" required value="<?php echo $oldData['name'] ?>">
             </div>
+            <?php echo isset($errors['email']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['email'] . "</p>" : ""; ?>
             <div class="input-group">
                 <i class="fas fa-envelope" onclick="focusInput('email')"></i>
-                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="email" id="email" name="email" placeholder="Email" required value="<?php echo $oldData['email'] ?>">
             </div>
+            <?php echo isset($errors['image']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['image'] . "</p>" : ""; ?>
             <div class="input-group">
                 <i class="fas fa-file" onclick="focusInput('image')"></i>
                 <input type="file" id="image" name="image" class="image" required>
             </div>
             <div class="input-group">
                 <i class="fas fa-lock" onclick="focusInput('password')"></i>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required value="<?php echo $oldData['password'] ?>">
                 <i class="fas fa-eye eye" onclick="togglePassword('password', this)"></i>
             </div>
+            <?php echo isset($errors['password']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['password'] . "</p>" : ""; ?>
             <div class="input-group">
                 <i class="fas fa-lock" onclick="focusInput('confirm-password')"></i>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password" required value="<?php echo $oldData['confirm-password'] ?>">
                 <i class="fas fa-eye eye" onclick="togglePassword('confirm-password', this)"></i>
             </div>
             <button type="submit" class="btn" name="submit">Sign up</button>
@@ -153,3 +168,7 @@
 </body>
 
 </html>
+<?php
+unset($_SESSION['errors']);
+unset($_SESSION['oldData']);
+?>
