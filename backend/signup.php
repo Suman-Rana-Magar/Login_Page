@@ -40,6 +40,10 @@ if (isset($_POST["submit"])) {
         $errors['password'] = "Password and Confirm Password do not match";
     }
 
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors['email'] = "Invalid Email";
+    }
+
     $insert = "INSERT INTO users(name,email,image,password)VALUES('$name','$email','$image','$password')";
     $check_user = mysqli_query($conn, "SELECT * FROM users WHERE email='$email'");
     if (mysqli_num_rows($check_user) > 0) {
