@@ -106,7 +106,7 @@
     <a href="../../index.php" class="back-link">&larr; Back to homepage</a>
     <div class="container">
         <h2>Create Account</h2>
-        <form action="../../backend/signup.php" method="POST">
+        <form action="../../backend/signup.php" method="POST" enctype="multipart/form-data">
             <div class="input-group">
                 <i class="fas fa-user" onclick="focusInput('name')"></i>
                 <input type="text" id="name" name="name" placeholder="Name" required>

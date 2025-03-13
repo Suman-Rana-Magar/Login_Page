@@ -90,7 +90,7 @@ $link = isset($email) ? "backend/logout.php" : "frontend/views/login.php";
 
 <body>
     <div class="container">
-        <img src="https://inforrm.org/wp-content/uploads/2018/06/unknown.jpg" alt="Profile Picture" class="profile-img">
+        <img src="<?php echo isset($image) ? $image : '../frontend/assets/images/unknown.jpg' ?>" alt="Profile Picture" class="profile-img">
         <div class="user-name"><?php echo isset($name) ? $name : "Who Are You?" ?></div>
         <p class="user-email"><?php echo isset($email) ? $email : "Unknown@domain.com" ?></p>
         <span class="user-id">ID #<?php echo isset($id) ? $id : "?" ?></span>
