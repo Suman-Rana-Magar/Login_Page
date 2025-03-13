@@ -1,5 +1,7 @@
 <?php
 session_start();
+$errors = [];
+$oldData = [];
 include "db_connect.php";
 
 if (isset($_POST["submit"])) {
@@ -10,11 +12,16 @@ if (isset($_POST["submit"])) {
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
         $_SESSION["email"] = $email;
-        echo "<script>alert('Login Successfully !')</script>";
-        echo "<script>window.open('../frontend/views/../../index.php','_SELF')</script>";
+        header("location: ../index.php");
+        exit();
     } else {
-        echo "<script>alert('Invalid email or password')</script>";
-        echo "<script>window.open('../frontend/views/login.php','_SELF')</script>";
+        $oldData['email'] = $email;
+        $oldData['password'] = $password;
+        $errors['email'] = "Invalid email or password";
+        $_SESSION['errors'] = $errors;
+        $_SESSION['oldData'] = $oldData;
+        header("location: ../frontend/views/login.php");
+        exit();
     }
     mysqli_close($conn);
 }

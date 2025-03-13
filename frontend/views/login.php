@@ -4,6 +4,10 @@ if (isset($_SESSION["email"])) {
     header("Location: ../../index.php");
     exit();
 }
+if (isset($_SESSION['errors'])) {
+    $errors = $_SESSION['errors'];
+    $oldData = $_SESSION['oldData'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -99,6 +103,11 @@ if (isset($_SESSION["email"])) {
             margin-bottom: 20px;
         }
 
+        .error-message {
+            text-align: left;
+            margin-top: -10px;
+        }
+
         @media (max-width: 400px) {
             .container {
                 width: 90%;
@@ -114,13 +123,14 @@ if (isset($_SESSION["email"])) {
         <form action="../../backend/login.php" method="POST">
             <div class="input-group">
                 <i class="fas fa-envelope" onclick="focusInput('email')"></i>
-                <input type="email" id="email" name="email" placeholder="Email" required>
+                <input type="email" id="email" name="email" placeholder="Email" required value="<?php echo $oldData['email'] ?>">
             </div>
             <div class="input-group">
                 <i class="fas fa-lock" onclick="focusInput('password')"></i>
-                <input type="password" id="password" name="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required value="<?php echo $oldData['password'] ?>">
                 <i class="fas fa-eye eye" onclick="togglePassword('password', this)"></i>
             </div>
+            <?php echo isset($errors['email']) ? "<p class='error-message' style='color: red; font-size: 13px;'>" . $errors['email'] . "</p>" : ""; ?>
             <div class="links"><a href="forgot_password_email.php">Forgot password?</a></div>
             <button type="submit" class="btn" name="submit">Sign in</button>
         </form>
