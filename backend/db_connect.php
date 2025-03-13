@@ -19,6 +19,7 @@ if (!(mysqli_num_rows($exist) > 0)) {
     email VARCHAR(255) NOT NULL UNIQUE,
     image VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
+    reset_token VARCHAR(255) NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     )";
     if (!mysqli_query($conn, $sql)) {
