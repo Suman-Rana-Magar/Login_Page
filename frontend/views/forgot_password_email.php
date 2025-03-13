@@ -89,7 +89,7 @@ session_start();
     <div class="container">
         <h2>Forgot your password?</h2>
         <p>Don't fret! Just type in your email and we will send you a code to reset your password!</p>
-        <form action="../../backend/forgot_password_email.php" method="POST">
+        <form action="../../backend/forgot_password_email.php" method="GET">
             <?php echo isset($_SESSION['error']) ? "<p style='font-size: 13px; color: red; margin-top: -10px; margin-bottom: 5px; text-align: left;'>" . $_SESSION['error'] . "</p>" : ""; ?>
             <div class="input-group">
                 <input type="email" id="email" name="email" placeholder="example@something.com" required value="<?php echo $_SESSION['oldData']; ?>">

@@ -1,8 +1,8 @@
 <?php
 include "db_connect.php";
 session_start();
-if (isset($_POST['submit'])) {
-    $email = $_POST['email'];
+if (isset($_GET['submit'])) {
+    $email = $_GET['email'];
     $sql = "SELECT * FROM users WHERE email = '$email'";
     $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
