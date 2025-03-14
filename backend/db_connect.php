@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "root";
-$database = "login_page";
+$database = "lpg";
 $port = 33061;
 
 $conn = new mysqli($servername, $username, $password, $database, $port);

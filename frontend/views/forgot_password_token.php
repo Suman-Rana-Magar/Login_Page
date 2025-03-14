@@ -11,75 +11,8 @@ $token = $_REQUEST['token'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Recovery</title>
-    <style>
-        body {
-            background-color: #6ED2E7;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            max-width: 400px;
-            width: 100%;
-        }
-
-        .container h2 {
-            margin-bottom: 10px;
-        }
-
-        .container p {
-            font-size: 14px;
-            color: #555;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            background-color: #222;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            width: 100%;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        button:hover {
-            background-color: #444;
-        }
-
-        .back-link {
-            display: block;
-            margin-bottom: 15px;
-            font-size: 14px;
-            color: #333;
-            text-decoration: none;
-        }
-
-        .back-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/styles.css">
 </head>
 
 <body>
@@ -91,10 +24,15 @@ $token = $_REQUEST['token'];
             <input type="hidden" name="email" value="<?php echo $email; ?>">
             <input type="hidden" name="actual_token" value="<?php echo $token; ?>">
             <?php echo isset($_SESSION['token_error']) ? "<p style='font-size: 13px; color: red; margin: 0; text-align: left;'>" . $_SESSION['token_error'] . "</p>" : ""; ?>
-            <input type="text" placeholder="Enter 6 digit code here" name="token" maxlength="6" required value="<?php echo $_SESSION['old_token']; ?>">
-            <button type="submit" name="submit">Recover password</button>
+            <div class="input-group">
+                <i class="fas fa-key" onclick="focusInput('token')"></i>
+                <input type="text" placeholder="Enter 6 digit code here" name="token" maxlength="6" required value="<?php echo $_SESSION['old_token']; ?>">
+            </div>
+            <button type="submit" class="btn" name="submit">Recover password</button>
         </form>
     </div>
+
+    <script src="../assets/js/scripts.js"></script>
 </body>
 
 </html>
